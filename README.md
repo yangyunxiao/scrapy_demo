@@ -63,6 +63,35 @@ run library module as a script (terminates option list)
 将库中的python模块用作脚本去运行。
 ```
 
+<p>settings.py中取消robot协议防止爬虫终止  </p>
+
+```python
+# Obey robots.txt rules
+ROBOTSTXT_OBEY = False
+```
+###Xpath使用方法
+
+表达式|说明
+:---:|:---
+nodename | 选取此节点的所有节点
+/ | 从根节点选取
+// | 从匹配选择的当前节点选择文档中的节点，而不考虑他们的位置
+.|选取当前节点
+..|选取当前节点的父节点
+@|选取属性
+
+使用scrapy  shell  url 终端分析网页
+```
+ title = response.xpath('//*[@id="post-107390"]/div[1]/h1/text()')
+ text()取出值
+```
+
+
+###CSS选择器
+...
+
+
+##Scrapy Item
 
 
 
