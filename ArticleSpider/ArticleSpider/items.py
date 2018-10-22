@@ -24,5 +24,5 @@ class ArticleDetailItem(scrapy.Item):
     front_image_url = scrapy.Field()
     url = scrapy.Field()
     content = scrapy.Field()
-
-
+    front_image_path = scrapy.Field()
+    url_object_id = scrapy.Field()
