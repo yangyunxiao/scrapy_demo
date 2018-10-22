@@ -93,6 +93,17 @@ nodename | 选取此节点的所有节点
 
 ##Scrapy Item
 
+Pipelines 代表数据流处理管道
+```python
+# 取消注释 数字代表管道处理的优先级  数字越小  则优先级越高
+# Configure item pipelines
+# See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+ITEM_PIPELINES = {
+   'ArticleSpider.pipelines.ArticlespiderPipeline': 300,
+   'scrapy.pipelines.images.ImagesPipeline':50,
+}
+```
+
 
 
 
