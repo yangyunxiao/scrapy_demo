@@ -93,7 +93,7 @@ nodename | 选取此节点的所有节点
 
 ##Scrapy Item
 
-Pipelines 代表数据流处理管道
+###Pipelines 代表数据流处理管道
 ```python
 # 取消注释 数字代表管道处理的优先级  数字越小  则优先级越高
 # Configure item pipelines
@@ -104,6 +104,30 @@ ITEM_PIPELINES = {
 }
 ```
 
+爬去数据录入数据库
+```
+pipenv install pymysql
+```
 
+配置mysql异步插入 提高解析速度   
+mysql的配置信息在setting文件中
+```python
+MYSQL_HOST = ''
+MYSQL_DBNAME = ''
+MYSQL_USER = ''
+MYSQL_PASSWORD = ''
+MYSQL_PORT = 3306
+
+class MysqlTwistedPipeline(object):
+    
+    #此方法会被自动调用  将setting文件中的配置信息传入读取
+    @classmethod
+    def from_setting(cls,settings):
+        host = settings['MYSQL_HOST']
+        db_name = settings['MYSQL_DBNAME']
+        user = settings['MYSQL_USER']
+        password = settings['MYSQL_PASSWORD']
+        port = settings['MYSQL_PORT']
+```
 
 
