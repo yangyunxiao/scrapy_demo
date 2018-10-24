@@ -112,22 +112,76 @@ pipenv install pymysql
 配置mysql异步插入 提高解析速度   
 mysql的配置信息在setting文件中
 ```python
+#setting.py 文件中
 MYSQL_HOST = ''
 MYSQL_DBNAME = ''
 MYSQL_USER = ''
 MYSQL_PASSWORD = ''
 MYSQL_PORT = 3306
 
+from twisted.enterprise import adbapi 
+import pymysql
+#使用twisted实现异步录入
 class MysqlTwistedPipeline(object):
-    
+    def __init__(self,dbpool):
+        self.dbpool = dbpool
+        
     #此方法会被自动调用  将setting文件中的配置信息传入读取
     @classmethod
     def from_setting(cls,settings):
         host = settings['MYSQL_HOST']
-        db_name = settings['MYSQL_DBNAME']
+        db = settings['MYSQL_DBNAME']
         user = settings['MYSQL_USER']
         password = settings['MYSQL_PASSWORD']
         port = settings['MYSQL_PORT']
+        
+        db_params = dict(
+            host = host,
+            db = db,
+            user = user,
+            password = password,
+            charset = 'utf-8',
+            cursorclass = pymysql.cursors.DictCursor,
+            use_unicode = True
+        )
+        
+        dbpool = adbapi.ConnectionPool('MySQLdb',**db_params)
+        return cls(dbpool)
+        
+    def process_item(self,item,spider):
+        # 使用twisted将mysql插入变成异步执行
+        query = self.dbpool.runInteraction(self.do_insert,item)
+        #处理异常
+        query.addErrback(self.handle_error)
+        
+    def handle_error(self,failure):
+        #处理异常
+        print(failure)
+        
+    def do_insert(self,cursor,item):
+        pass
+```
+
+###Item Loader机制 
+封装匹配规则 及对提取出的字段数据做特殊处理
+```python
+from scrapy.loader import ItemLoader
+import scrapy
+from scrapy.loader.processors import MapCompose,TakeFirst
+from ArticleSpider.items import ArticleDetailItem
+def parser_detail(response):
+    # article_item = ArticleDetailItem()
+    item_loader = ItemLoader(item = ArticleDetailItem(),response=response)
+    item_loader.add_css("title",".entry-header h1::text")
+    item_loader.add_value("url",response.url)
+    article_item = item_loader.load_item()
+    yield article_item 
+    
+#使用 MapCompose 可以传入多个处理函数  会依次调用
+title = scrapy.Field(
+    input_processor=MapCompose(lambda x : x + "prefix"),
+    output_processor = TakeFirst() 
+)
 ```
 
 
