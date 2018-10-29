@@ -182,6 +182,44 @@ title = scrapy.Field(
     input_processor=MapCompose(lambda x : x + "prefix"),
     output_processor = TakeFirst() 
 )
+``` 
+
+
+#知乎爬虫
+####知乎的登录  
+selenium 安装  pip install selenium  
+安装浏览器驱动 
+```python
+from selenium import webdriver
+from scrapy.selector import Selector
+
+browser = webdriver.Chrome(executable_path="驱动路径")
+browser.get("url")
+
+#动态加载完成之后的网页内容
+page_source = browser.page_source
+
+selector  = Selector(text=page_source)
+
 ```
+
+####模拟知乎登录
+```python
+#兼容模式导入python2或python3
+try:
+    import cookielib
+except:
+    import http.cookiejar as cookiejar
+    
+import requests
+    
+
+def get_xsrf():
+    response = requests.get("https://www.zhihu.com",headers=header)
+```
+
+requests和requests.session()区别  session 复用链接不需要再次建立连接了
+
+新建知乎爬虫项目 scrapy genspider zhihu www.zhihu.com   
 
 

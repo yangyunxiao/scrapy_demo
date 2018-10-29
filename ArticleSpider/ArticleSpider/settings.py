@@ -33,7 +33,7 @@ ROBOTSTXT_OBEY = False
 # CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-# COOKIES_ENABLED = False
+COOKIES_ENABLED = True
 
 # Disable Telnet Console (enabled by default)
 # TELNETCONSOLE_ENABLED = False
@@ -65,8 +65,12 @@ ROBOTSTXT_OBEY = False
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
-    'ArticleSpider.pipelines.ArticlespiderPipeline': 300,
-    'ArticleSpider.pipelines.ArticleImagePipeline': 1,
+    # 'ArticleSpider.pipelines.ArticlespiderPipeline': 50,
+    'ArticleSpider.pipelines.ArticleImagePipeline': 50,
+    # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 50,
+    # 'ArticleSpider.pipelines.ArticleMysqlPipeline': 100,
+    'ArticleSpider.pipelines.MysqlTwistedPipeline': 150,
+
 }
 
 IMAGES_URLS_FIELD = "front_image_url"
@@ -93,3 +97,10 @@ IMAGES_STORE = os.path.join(project_dir, "images")
 # HTTPCACHE_DIR = 'httpcache'
 # HTTPCACHE_IGNORE_HTTP_CODES = []
 # HTTPCACHE_STORAGE = 'scrapy.extensions.httpcache.FilesystemCacheStorage'
+
+#数据库配置信息
+MYSQL_HOST = '127.0.0.1'
+MYSQL_DBNAME = 'article_spider'
+MYSQL_USER = 'root'
+MYSQL_PASSWORD = ''
+MYSQL_PORT = 3306

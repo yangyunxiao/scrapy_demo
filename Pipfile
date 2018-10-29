@@ -7,6 +7,8 @@ name = "pypi"
 scrapy = "*"
 pillow = "*"
 pymysql = "*"
+selenium = "*"
+requests = "*"
 
 [dev-packages]
 
