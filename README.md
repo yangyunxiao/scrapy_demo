@@ -222,4 +222,41 @@ requests和requests.session()区别  session 复用链接不需要再次建立�
 
 新建知乎爬虫项目 scrapy genspider zhihu www.zhihu.com   
 
+```bash
+scrapy shell -s USER-AGENT="" url 
+#设置user-agent
+```
+
+####数据表设计
+
+爬取代码
+```python
+try:
+    import urlparse as parse
+except:
+    from urllib import parse 
+    
+from scrapy import Request
+
+import scrapy
+import re
+
+class ZhihuSpider(scrapy.Spider):
+    
+    def parse(self,response):
+        post_urls = response.css("a:attr(href)").extract()
+        post_urls = [parse.urljoin(response.url,url) for url in post_urls if url.startWith("https://")]
+        # post_urls = filter(lambda x : True if x.startswith("https://") else False,post_urls)
+        
+        for url in post_urls:
+            match_obj =  re.match(r"(.*zhihu.com/question/(\d+))($|/).*",url)
+            if match_obj:
+                question_url = match_obj.group(1)
+                question_id = match_obj.group(2)
+                
+            yield Request(url=url,callback=self.parse_question)
+    def parse_question(self,response):
+        pass
+```
+
 
