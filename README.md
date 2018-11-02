@@ -258,5 +258,4 @@ class ZhihuSpider(scrapy.Spider):
     def parse_question(self,response):
         pass
 ```
-
-
+安装本地软件包 "pip install file_path" 

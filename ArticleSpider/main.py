@@ -11,4 +11,4 @@ sys.path.append(os.path.abspath(__file__))
 
 pymysql.install_as_MySQLdb()
 
-execute(["scrapy", "crawl", "jobbole"])
+execute(["scrapy", "crawl", "zhihu"])
