@@ -99,3 +99,12 @@ class ArticleDetailItem(scrapy.Item):
                   self['front_image_url'])
 
         return insert_sql, params
+
+
+class ZhiHuQuestionItem(scrapy.Item):
+    title = scrapy.Field()
+    question_id = scrapy.Field()
+    question_detail = scrapy.Field()
+    tags = scrapy.Field(
+        output_processor=Join(",")
+    )
