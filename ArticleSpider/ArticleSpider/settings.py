@@ -66,16 +66,17 @@ COOKIES_ENABLED = True
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
 ITEM_PIPELINES = {
     # 'ArticleSpider.pipelines.ArticlespiderPipeline': 50,
-    'ArticleSpider.pipelines.ArticleImagePipeline': 50,
+    # 'ArticleSpider.pipelines.ArticleImagePipeline': 50,
     # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 50,
     # 'ArticleSpider.pipelines.ArticleMysqlPipeline': 100,
-    'ArticleSpider.pipelines.MysqlTwistedPipeline': 150,
+    # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 150,
 
 }
 
 IMAGES_URLS_FIELD = "front_image_url"
 project_dir = os.path.abspath(os.path.dirname(__file__))
 IMAGES_STORE = os.path.join(project_dir, "images")
+
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://doc.scrapy.org/en/latest/topics/autothrottle.html
