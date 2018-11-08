@@ -17,7 +17,6 @@ class JobboleSpider(scrapy.Spider):
     allowed_domains = ['blog.jobbole.com']
     start_urls = ['http://blog.jobbole.com/all-posts/#']
     # start_urls = ['http://blog.jobbole.com/86935/']
-
     def parse(self, response):
         article_nodes = response.css('#archive .post.floated-thumb')
         # article_nodes = response.css('.post-meta .archive-title::attr(href)').extract()

@@ -88,6 +88,16 @@ class ArticleImagePipeline(ImagesPipeline):
                     item["front_image_path"] = ""
         return item
 
+class GifImagePipeline(ImagesPipeline):
+    def item_completed(self, results, item, info):
+        if 'image_url' in item:
+            for ok, value in results:
+                if ok and "path" in value.keys():
+                    item["image_path"] = value.get("path")
+                else :
+                    item["image_path"] = ""
+        return item
+
 #
 #
 # class MysqlPipeline(object):

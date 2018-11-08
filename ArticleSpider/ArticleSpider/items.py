@@ -108,3 +108,13 @@ class ZhiHuQuestionItem(scrapy.Item):
     tags = scrapy.Field(
         output_processor=Join(",")
     )
+
+
+class BiaoQingItem(scrapy.Item):
+    image_url = scrapy.Field(
+        output_processor=MapCompose(return_origin_value)
+    )
+    image_path = scrapy.Field()
+    image_tags = scrapy.Field(
+        output_processor=Join(",")
+    )

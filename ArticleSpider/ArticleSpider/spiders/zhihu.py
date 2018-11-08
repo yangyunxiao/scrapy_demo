@@ -7,6 +7,8 @@ from urllib.parse import quote
 
 import scrapy
 import time
+
+from w3lib.html import remove_tags
 from scrapy import Request
 
 from ArticleSpider.items import ZhiHuQuestionItem, ArticleItemLoader
@@ -56,7 +58,7 @@ class ZhihuSpider(scrapy.Spider):
                 if search_question['object']['type'] == "answer":
                     time.sleep(1)
                     print("question_title : {0}".format(search_question['object']['question']['name']))
-                    print("content: {0}".format(search_question['object']['content']))
+                    print("content: {0}".format(remove_tags(search_question['object']['content'])))
 
         if not is_end:
             next_url_pattern = r".*&limit=(\d+).*&offset=(\d+).*"

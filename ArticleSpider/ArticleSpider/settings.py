@@ -67,13 +67,14 @@ COOKIES_ENABLED = True
 ITEM_PIPELINES = {
     # 'ArticleSpider.pipelines.ArticlespiderPipeline': 50,
     # 'ArticleSpider.pipelines.ArticleImagePipeline': 50,
+    'ArticleSpider.pipelines.GifImagePipeline': 50,
     # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 50,
     # 'ArticleSpider.pipelines.ArticleMysqlPipeline': 100,
     # 'ArticleSpider.pipelines.MysqlTwistedPipeline': 150,
 
 }
 
-IMAGES_URLS_FIELD = "front_image_url"
+IMAGES_URLS_FIELD = "image_url"
 project_dir = os.path.abspath(os.path.dirname(__file__))
 IMAGES_STORE = os.path.join(project_dir, "images")
 
