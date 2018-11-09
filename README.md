@@ -381,4 +381,19 @@ class CrawlSpider(Spider):
         self._follow_links = crawler.settings.getbool('CRAWLSPIDER_FOLLOW_LINKS', True)
 ```
 
+##scrapy 运行机制
+
+##### spider,engine,pipeline,downloader,scheduler五个重要组件，另外还有middleware
+
+##### spider: 爬虫入口逻辑定义处，包括返回Response解析逻辑，开始url等条件定义  
+##### engine: 中转engine  
+##### pipeline: item处理逻辑  
+##### downloader: 下载网页解析，并返回response  
+##### scheduler: 调度器
+
+spider 发送request到 engine 转发到scheduler返回Request到engine，engine发送Request到下载器downloader，解析返回Response到engine，
+engine返回到spider中调用用户解析逻辑，如果yield Item到engine 则发送到pipeline处理，如果是Request则发送到engine重复上述逻辑
+
+#爬虫和反爬虫
+发爬虫误伤举例封禁ip这种方法是不合适的 比如一个学校可能只有一个ip  如果将此ip封禁  那么这个学校都不能访问网站了
 
