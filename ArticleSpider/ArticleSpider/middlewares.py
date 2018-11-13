@@ -5,6 +5,7 @@
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/spider-middleware.html
 
+from fake_useragent import UserAgent
 from scrapy import signals
 
 
@@ -101,3 +102,9 @@ class ArticlespiderDownloaderMiddleware(object):
 
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
+
+
+class RandomUserAgentMiddleWare(object):
+    def __init__(self, crawler):
+        super(RandomUserAgentMiddleWare, self).__init__()
+        self.ua = UserAgent()

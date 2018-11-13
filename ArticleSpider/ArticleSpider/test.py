@@ -18,10 +18,21 @@ def test_yield(start, end, step=1):
 
 if __name__ == "__main__":
 
-    for x in test_yield(0, 100, 5):
-        if isinstance(x , str):
+    # for x in test_yield(0, 100, 5):
+    #     if isinstance(x , str):
+    #
+    #         print("last yield {0}" .format(x))
+    #
+    #     else :
+    #         print("first yield {0}".format(x))
 
-            print("last yield {0}" .format(x))
+    from fake_useragent import UserAgent
+    ua = UserAgent()
+    print(ua.random)
 
-        else :
-            print("first yield {0}".format(x))
+    print(getattr(ua,"random"))
+    dict = dict(age=1)
+    dict.age = 11
+    dict.setdefault("name","yunxioa")
+    dict.__setitem__('name', "hahhh")
+    print(getattr(dict,"age"))

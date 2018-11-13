@@ -9,6 +9,7 @@ pillow = "*"
 pymysql = "*"
 selenium = "*"
 requests = "*"
+fake-useragent = "*"
 
 [dev-packages]
 

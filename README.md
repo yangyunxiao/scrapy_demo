@@ -397,3 +397,5 @@ engine返回到spider中调用用户解析逻辑，如果yield Item到engine 则
 #爬虫和反爬虫
 发爬虫误伤举例封禁ip这种方法是不合适的 比如一个学校可能只有一个ip  如果将此ip封禁  那么这个学校都不能访问网站了
 
+middleware
+
