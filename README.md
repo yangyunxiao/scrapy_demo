@@ -399,4 +399,83 @@ engine返回到spider中调用用户解析逻辑，如果yield Item到engine 则
 
 middleware
 
+###selenium
+不加载图片  
+```python
+#固定写法
+from selenium import webdriver
 
+chrome_opt = webdriver.ChromeOptions()
+prefs = {'profile.managed_default_content_settings.images':2}
+chrome_opt.add_experimental_option("prefs",prefs)
+browser = webdriver.Chrome(executable_path="path")
+browser.get("url")
+```
+
+###plantomjs 无界面的浏览器
++ 在Linux服务器当中使用
++ 在多进程情况下性能会下降很严这功能
+
+将Selenuim继承到Scrapy当中
+
+在middleware中
+```python
+import scrapy
+from selenium import webdriver
+
+from scrapy.http import HtmlResponse
+
+#引入信号机制  处理浏览器退出问题
+from scrapy import signals 
+from scrapy.xlib.pydispatch import dispatcher
+
+class JobboleSpider(scrapy.Spider):
+    def __init__(self):
+        self.browser =  webdriver.Chrome(executable_path="path")
+        super(JobboleSpider,self).__init__()
+        dispatcher.connect(self.spider_closed,signals.spider_closed)
+
+    def spider_closed(self,spider): 
+        #爬虫退出时关闭浏览器
+        self.browser.quit()
+class MiddlewareSelenium(object):
+
+    def process_request(self,request,spider):
+        if spider.name == "jobbole":
+            spider.browser.get(request.url)
+            import time 
+            time.sleep(3)
+            return HtmlResponse(url=spider.current_url,body=spider.page_source)
+```
+
+###无界面运行chrome
+```bash
+pipenv install PyVirtualDisplay
+```
+
+```python
+from pyvirtualdisplay import Display
+from selenium import webdriver
+
+display = Display(visible=0,size=(800,600))
+display.start()
+
+#之后操作与有界面一致 ...
+browser =  webdriver.Chrome(executable_path="path")
+
+```
+
+### Scrapy 暂停与重启
+```bash
+crawl spider lagou -s JOBDIR=job_info/001   # -s  set指令
+#scrapy的启动与暂停接受的是Ctrl+C命令  IDE是不会发出这个命令的 Ctrl+C如果连续按两次同样是强制结束 不会善后处理 
+kill -f main.py  
+#杀死进程之前会发送一个中断信号  Scrapy会接受到这个信号并做善后处理
+kill -f -9 main.py
+#强制杀死进程   不会做善后处理 程序接收不到中断信号 相当于windows任务管理器强制关闭进程 直接关闭
+```
+
+### Scrapy 的去重原理
+
+
+ 

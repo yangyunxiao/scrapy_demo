@@ -64,6 +64,7 @@ COOKIES_ENABLED = True
 
 # Configure item pipelines
 # See https://doc.scrapy.org/en/latest/topics/item-pipeline.html
+
 ITEM_PIPELINES = {
     # 'ArticleSpider.pipelines.ArticlespiderPipeline': 50,
     # 'ArticleSpider.pipelines.ArticleImagePipeline': 50,

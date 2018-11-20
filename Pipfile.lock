@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "8ec45b574b2685923739222fdf5599894d58e930faecd4e6196fe907976f0122"
+            "sha256": "28f17c171a99f4c1ec9e0dfa84e2568ec4d4cc7aadd2cd50164bf0276bb45f17"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -125,6 +125,12 @@
                 "sha256:3b5103e8789da9e936a68d993b70df732d06b8bb9a337a05ed4eb52c17ef7206"
             ],
             "version": "==1.0.3"
+        },
+        "easyprocess": {
+            "hashes": [
+                "sha256:94e241cadc9a46f55b5c06000df85618849602e7e1865b8de87576b90a22e61f"
+            ],
+            "version": "==0.2.3"
         },
         "fake-useragent": {
             "hashes": [
@@ -280,6 +286,13 @@
                 "sha256:6488f1423b00f73b7ad5167885312bb0ce410d3312eb212393795b53c8caa580"
             ],
             "version": "==18.0.0"
+        },
+        "pyvirtualdisplay": {
+            "hashes": [
+                "sha256:012883851a992f9c53f0dc6a512765a95cf241bdb734af79e6bdfef95c6e9982"
+            ],
+            "index": "pypi",
+            "version": "==0.2.1"
         },
         "queuelib": {
             "hashes": [
